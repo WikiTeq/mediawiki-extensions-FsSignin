@@ -1,0 +1,44 @@
+{
+	"name": "FsSignin",
+	"author": [
+		"[https://www.mediawiki.org/wiki/User:GregRundlett Greg Rundlett]"
+	],
+	"url": "https://www.mediawiki.org/wiki/Extension:FsSignin",
+	"descriptionmsg": "fssignin-desc",
+	"license-name": "GPL-2.0-or-later",
+	"type": "other",
+	"requires": {
+		"MediaWiki": ">= 1.32.0"
+	},
+	"AutoloadNamespaces": {
+		"MediaWiki\\Extension\\FsSignin\\": "includes/"
+	},
+	"config": {
+		"FsSigninEnableFoo": {
+			"description": "Enable the Foo feature.",
+			"value": true
+		}
+	},
+	"Hooks": {
+		"BeforeInitialize": "MediaWiki\\Extension\\FsSignin\\Hooks::doSignin"
+	},
+	"MessagesDirs": {
+		"FsSignin": [
+			"i18n"
+		]
+	},
+	"ResourceFileModulePaths": {
+		"localBasePath": "resources",
+		"remoteExtPath": "FsSignin/resources"
+	},
+	"ResourceModules": {
+		"ext.FsSignin": {
+			"dependencies": [],
+			"messages": [],
+			"styles": [],
+			"scripts": [],
+			"targets": ["desktop", "mobile"]
+		}
+	},
+	"manifest_version": 2
+}
