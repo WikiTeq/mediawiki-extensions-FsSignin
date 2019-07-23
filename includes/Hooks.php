@@ -63,6 +63,25 @@ class Hooks {
 				// $out->getUser()->mName is the username
 				return;
 			}
+			// make sure we test if the session is expired before we auto-login
+			// example 1135c3c1-4dc9-477c-b5dd-c41c57f6bedf-prod
+			$ch = curl_init("https://ident.familysearch.org/cis-public-api/v4/session/$sessionId");
+			// When we curl_exec, return a string rather than output directly
+			curl_setopt ($ch, CURLOPT_RETURNTRANSFER, true);
+			// Ask for JSON instead of XML
+			$headers = ["Accept: application/json"];
+			curl_setopt ($ch, CURLOPT_HTTPHEADER, $headers);
+			// Send our session cookie in the request
+			curl_setopt ($ch, CURLOPT_COOKIE, "fssessionid=$sessionId");
+			$json = curl_exec($ch);
+			curl_close($ch);
+			$objJson = json_decode($json);
+			// make sure we test if the session is expired before we auto-login
+			// a valid session won't even have statusCode
+			if ( $objJson->statusCode == 453 ) {
+				return;
+			}
+
 			$loginSpecialPages = ExtensionRegistry::getInstance()->getAttribute(
 				'PluggableAuthLoginSpecialPages'
 			);
