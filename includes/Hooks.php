@@ -47,7 +47,7 @@ class Hooks {
 			WebRequest $request, MediaWiki $mw ) {
 		$sessionId = null;
 	 	$sessionId = @$_COOKIE['fssessionid'];
-		$wikiSessionId = @$_COOKIE['wiki_ensession'];
+		$wikiSessionId = @$_COOKIE['wiki_en_session'];
 
 		if ($wikiSessionId) {
 			return;
