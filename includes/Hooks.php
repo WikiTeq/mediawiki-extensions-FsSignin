@@ -51,7 +51,6 @@ class Hooks {
 
 		if ($wikiSessionId) {
 			// we want to signin to the other language wikis
-			continue;
 		}
 
 		// echo "Looking for session $sessionId";
