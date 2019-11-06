@@ -50,7 +50,8 @@ class Hooks {
 		$wikiSessionId = @$_COOKIE['wiki_en_session'];
 
 		if ($wikiSessionId) {
-			return;
+			// we want to signin to the other language wikis
+			continue;
 		}
 
 		// echo "Looking for session $sessionId";
@@ -99,7 +100,7 @@ class Hooks {
 			exit;
 
 		} else {
-
+			// anonymous user; do nothing
 		}
 	}
 
