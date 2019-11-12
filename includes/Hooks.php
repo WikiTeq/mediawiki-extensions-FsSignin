@@ -76,9 +76,8 @@ class Hooks {
 			$json = curl_exec($ch);
 			curl_close($ch);
 			$objJson = json_decode($json);
-			// make sure we test if the session is expired before we auto-login
-			// a valid session won't even have statusCode
-			if ( $objJson->statusCode == 453 ) {
+			// make sure we have a valid user before we auto-login
+			if ( count($objJson->users) == 0 ) {
 				return;
 			}
 
