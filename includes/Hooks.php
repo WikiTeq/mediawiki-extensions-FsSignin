@@ -77,7 +77,7 @@ class Hooks {
 			curl_close($ch);
 			$objJson = json_decode($json);
 			// make sure we have a valid user before we auto-login
-			if ( count($objJson->users) == 0 ) {
+			if ( !isset($objJson->users) ) {
 				return;
 			}
 
