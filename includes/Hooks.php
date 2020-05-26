@@ -53,6 +53,7 @@ class Hooks {
 			// we want to signin to the other language wikis
 		}
 
+		// bb46c487-5df6-4ead-9ebc-289b44a6f0c6-prod
 		// echo "Looking for session $sessionId";
 	 	if ( !is_null( $sessionId ) && !empty( $sessionId) ) {
 
@@ -76,8 +77,10 @@ class Hooks {
 			$json = curl_exec($ch);
 			curl_close($ch);
 			$objJson = json_decode($json);
+
+			//print '<pre>'; var_dump($objJson); print '</pre>'; exit();
 			// make sure we have a valid user before we auto-login
-			if ( !isset($objJson->users) ) {
+			if ( !count($objJson->users) ) {
 				return;
 			}
 
