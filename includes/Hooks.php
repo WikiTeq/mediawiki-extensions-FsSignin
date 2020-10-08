@@ -78,9 +78,10 @@ class Hooks {
 			curl_close($ch);
 			$objJson = json_decode($json);
 
-			//print '<pre>'; var_dump($objJson); print '</pre>'; exit();
+			// print '<pre>'; var_dump($objJson); print '</pre>'; exit();
 			// make sure we have a valid user before we auto-login
-			if ( !count($objJson->users) ) {
+                        // if there is no session, we'll have a statusCode of 453
+			if ( ($objJson->statusCode == 453) ) {
 				return;
 			}
 
