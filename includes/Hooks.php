@@ -80,8 +80,12 @@ class Hooks {
 
 			// print '<pre>'; var_dump($objJson); print '</pre>'; exit();
 			// make sure we have a valid user before we auto-login
-                        // if there is no session, we'll have a statusCode of 453
-			if ( ($objJson->statusCode == 453) ) {
+			// if the session is stale, we'll have a statusCode of 453
+			// if there is no session, we'll have a user count of zero
+			if ( 
+			     ( !empty($objJson->statusCode) && ( $objJson->statusCode == 453 ) ) || 
+			     ( !count($objJson->users) )
+			   ) {
 				return;
 			}
 
