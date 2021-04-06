@@ -66,7 +66,8 @@ class Hooks {
 			}
 			// make sure we test if the session is expired before we auto-login
 			// example 1135c3c1-4dc9-477c-b5dd-c41c57f6bedf-prod
-			$ch = curl_init("https://ident.familysearch.org/cis-public-api/v4/session/$sessionId");
+			// OLD $ch = curl_init("https://ident.familysearch.org/cis-public-api/v4/session/$sessionId");
+			$ch = curl_init("https://ident.familysearch.org/service/ident/cis/cis-public-api/v4/session/$sessionId");
 			// When we curl_exec, return a string rather than output directly
 			curl_setopt ($ch, CURLOPT_RETURNTRANSFER, true);
 			// Ask for JSON instead of XML
