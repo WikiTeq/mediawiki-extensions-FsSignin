@@ -45,6 +45,9 @@ class Hooks {
 	 */
 	public static function doSignin ( Title &$title, $article, OutputPage $out, User $user,
 			WebRequest $request, MediaWiki $mw ) {
+
+		global $wgOpenIDEndpoint;
+
 		$sessionId = null;
 	 	$sessionId = @$_COOKIE['fssessionid'];
 		$wikiSessionId = @$_COOKIE['wiki_en_session'];
@@ -66,8 +69,7 @@ class Hooks {
 			}
 			// make sure we test if the session is expired before we auto-login
 			// example 1135c3c1-4dc9-477c-b5dd-c41c57f6bedf-prod
-			// OLD $ch = curl_init("https://ident.familysearch.org/cis-public-api/v4/session/$sessionId");
-			$ch = curl_init("https://ident.familysearch.org/service/ident/cis/cis-public-api/v4/session/$sessionId");
+			$ch = curl_init("https://$wgOpenIDEndpoint/service/ident/cis/cis-public-api/v4/session/$sessionId");
 			// When we curl_exec, return a string rather than output directly
 			curl_setopt ($ch, CURLOPT_RETURNTRANSFER, true);
 			// Ask for JSON instead of XML
@@ -83,8 +85,8 @@ class Hooks {
 			// make sure we have a valid user before we auto-login
 			// if the session is stale, we'll have a statusCode of 453
 			// if there is no session, we'll have a user count of zero
-			if ( 
-			     ( !empty($objJson->statusCode) && ( $objJson->statusCode == 453 ) ) || 
+			if (
+			     ( !empty($objJson->statusCode) && ( $objJson->statusCode == 453 ) ) ||
 			     ( !count($objJson->users) )
 			   ) {
 				return;
